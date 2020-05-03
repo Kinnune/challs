@@ -1,4 +1,4 @@
-
+#Author : Eljas Kinnunen, 05/20
 
 
 flags = -Wall -Werror -Wextra -o

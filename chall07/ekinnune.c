@@ -57,6 +57,7 @@ void	ft_traverse_right(char **box, char *list)
 		list[nums.list_i++] = box[nums.y][nums.x++];
 		i++;
 	}
+	nums.x--;
 }
 /*
 char	*ft_traverse_right(char **box, char *list)

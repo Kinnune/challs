@@ -1,7 +1,6 @@
-/* Author: Eljas Kinnunen, 04/20 */
+/* Author: Eljas Kinnunen 04/20 */
 
-#include <stdio.h>
-#include <stdlib.h>
+#include "header.h"
 
 int	ft_count_width(char *str)
 {
@@ -22,9 +21,13 @@ char	**ft_allocate(int w, int h, char **argv)
 	i = 0;
 	j = 0;
 	shape = (char **)malloc(sizeof(char *)* h);
+	if (!shape)
+		return (shape);
 	while (i < h)
 	{
 		shape[i] = (char *)malloc(sizeof(char)* (w + 1));
+		if (!shape[i])
+			return (shape);
 		i++;
 	}
 	i = 0;
@@ -44,60 +47,79 @@ char	**ft_allocate(int w, int h, char **argv)
 
 //	ft_draw_hollow(int widt, int heig, char *list, char **box)
 
-char	*ft_make_list(int widt, int heig, char **box)
+void	ft_traverse_right(char **box, char *list)
 {
 	int i;
-	int h;
-	int w;
-	int pattern_w;
-	int pattern_h;
 
-//	int temp_w;
-//	int temp_h;
-	char *list;
-
-	w = 0;
-	h = 0;
 	i = 0;
-	pattern_w = widt;
-	pattern_h = heig;
-//	temp_w = widt;
-//	temp_h = heig;
-	list = (char *)malloc(sizeof(char)* (heig * widt));
-
-	while (pattern_w > 0 || pattern_h > 0)
+	while (i < nums.amount)
 	{
-		if (w > 0)
-			while (w < pattern_w)
-			{
-				list[i] = box[h][w];
-				w++;
-				i++;
-			}
-		
-	pattern_w -= 2;
-	pattern_h -= 2;
+		list[nums.list_i++] = box[nums.y][nums.x++];
+		i++;
 	}
+}
+/*
+char	*ft_traverse_right(char **box, char *list)
+{
+	int i;
 
+	i = 0;
+	while (i < nums.amount)
+	{
+		list[nums.list_i++] = box[nums.y][nums.x++];
+		i++;
+	}
 	return (list);
 }
+*/
 
-int	main(int ac, char **av)
+void	ft_traverse_down(char **box, char *list)
 {
-	int widt;
-	int heig;
-//	char *list;
-	char **shape;
-	heig = ac - 1;
-	if (ac > 1)
-	{
-		widt = ft_count_width(av[1]);
-		printf("length = %d height = %d", widt, heig);
-		shape = ft_allocate(widt, heig, av);
-		printf("%s %s", shape[0], shape[1]);
+	int i;
 
-//		list = ft_make_list(widt, heig, shape);
-//		printf("[%s]", list);
+	i = 0;
+	nums.y++;
+	while (i < nums.amount)
+	{
+		list[nums.list_i++] = box[nums.y++][nums.x];
+		i++;		
 	}
-	return (0);
+}
+
+/*
+char	*ft_traverse_left(char **box, char *list)
+{
+	int i;
+
+	i = 0;
+	while (i < nums.amount)
+	{
+		list[nums.list_i++] = box[nums.y][inums.x];
+		i++;
+	}
+	return (list);
+}	
+*/
+//char	*ft_traverse_left(char **box, char *list)
+//char	*ft_traverse_up(char **box, char *list)
+//char	*traverse_up(int amount, int x, int y, char **box, char *list)
+
+char	*ft_make_list(int widt, int heig, char **box)
+{
+	int list_size;
+	char *list;
+	nums.list_i = 0;
+	nums.x = 0;
+	nums.y = 0;
+	nums.amount = widt;
+	list_size = widt * heig;
+	list = (char *)malloc(sizeof(char)* list_size);
+
+//	while (nums.amount > 0)
+
+		ft_traverse_right(box, list);
+		nums.amount--;
+		ft_traverse_down(box, list);
+
+	return (list);
 }

@@ -4,7 +4,6 @@
 
 int	main(int ac, char **av)
 {
-	struct numbers nums;
 	int widt;
 	int heig;
 	char **shape;
@@ -19,7 +18,7 @@ int	main(int ac, char **av)
 		printf("%s %s", shape[0], shape[1]);
 		list = ft_make_list(widt, heig, shape);
 		printf("[%s]", list);
-		printf("%d", nums.list_i);
+		printf("%i", nums.y);
 	}
 	return (0);
 }

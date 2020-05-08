@@ -10,6 +10,7 @@ int     ft_count_width(char *str);
 char	*ft_make_list(int widt, int heig, char **box);
 char    **ft_allocate(int w, int h, char **argv);
 void	ft_traverse_right(char **box, char *list);
+void	ft_traverse_down(char **box, char *list);
 
 struct numbers
 {

@@ -54,10 +54,9 @@ void	ft_traverse_right(char **box, char *list)
 	i = 0;
 	while (i < nums.amount)
 	{
-		list[nums.list_i++] = box[nums.y][nums.x++];
+		list[nums.list_i++] = box[nums.y][++nums.x];
 		i++;
 	}
-	nums.x--;
 }
 /*
 char	*ft_traverse_right(char **box, char *list)
@@ -79,10 +78,9 @@ void	ft_traverse_down(char **box, char *list)
 	int i;
 
 	i = 0;
-	nums.y++;
 	while (i < nums.amount)
 	{
-		list[nums.list_i++] = box[nums.y++][nums.x];
+		list[nums.list_i++] = box[++nums.y][nums.x];
 		i++;		
 	}
 }
@@ -110,7 +108,7 @@ char	*ft_make_list(int widt, int heig, char **box)
 	int list_size;
 	char *list;
 	nums.list_i = 0;
-	nums.x = 0;
+	nums.x = -1;
 	nums.y = 0;
 	nums.amount = widt;
 	list_size = widt * heig;

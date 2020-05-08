@@ -8,6 +8,8 @@ make:
 
 run:
 	./chall07.exe 1234 5678 9999 0000
+runalphabet:
+	./chall07.exe abcde fghij klmop qrstu wvxyz
 
 clean:
 	-@rm *~ *.exe* 2>/dev/null || true

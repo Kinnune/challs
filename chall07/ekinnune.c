@@ -45,64 +45,55 @@ char	**ft_allocate(int w, int h, char **argv)
 	return (shape);
 }
 
-//	ft_draw_hollow(int widt, int heig, char *list, char **box)
-
 void	ft_traverse_right(char **box, char *list)
 {
 	int i;
 
 	i = 0;
-	while (i < nums.amount)
+	while (i < nums.amount_w)
 	{
 		list[nums.list_i++] = box[nums.y][++nums.x];
 		i++;
 	}
 }
-/*
-char	*ft_traverse_right(char **box, char *list)
-{
-	int i;
-
-	i = 0;
-	while (i < nums.amount)
-	{
-		list[nums.list_i++] = box[nums.y][nums.x++];
-		i++;
-	}
-	return (list);
-}
-*/
 
 void	ft_traverse_down(char **box, char *list)
 {
 	int i;
 
 	i = 0;
-	while (i < nums.amount)
+	while (i < nums.amount_h)
 	{
 		list[nums.list_i++] = box[++nums.y][nums.x];
 		i++;		
 	}
 }
 
-/*
-char	*ft_traverse_left(char **box, char *list)
+
+void	ft_traverse_left(char **box, char *list)
 {
 	int i;
 
 	i = 0;
-	while (i < nums.amount)
+	while (i < nums.amount_w)
 	{
-		list[nums.list_i++] = box[nums.y][inums.x];
+		list[nums.list_i++] = box[nums.y][--nums.x];
 		i++;
 	}
-	return (list);
 }	
-*/
-//char	*ft_traverse_left(char **box, char *list)
-//char	*ft_traverse_up(char **box, char *list)
-//char	*traverse_up(int amount, int x, int y, char **box, char *list)
 
+void	ft_traverse_up(char **box, char *list)
+{
+	int i;
+
+	i = 0;
+	while (i < nums.amount_h)
+	{
+		list[nums.list_i++] = box[--nums.y][nums.x];
+		i++;
+	}
+}
+	
 char	*ft_make_list(int widt, int heig, char **box)
 {
 	int list_size;
@@ -110,15 +101,21 @@ char	*ft_make_list(int widt, int heig, char **box)
 	nums.list_i = 0;
 	nums.x = -1;
 	nums.y = 0;
-	nums.amount = widt;
+	nums.amount_w = widt;
+	nums.amount_h = heig;
 	list_size = widt * heig;
 	list = (char *)malloc(sizeof(char)* list_size);
 
-//	while (nums.amount > 0)
-
+	while (nums.amount_w > 0 || nums.amount_h > 0)
+	{
+		nums.amount_h--;
 		ft_traverse_right(box, list);
-		nums.amount--;
+		nums.amount_w--;
 		ft_traverse_down(box, list);
-
+		nums.amount_h--;
+		ft_traverse_left(box, list);
+		nums.amount_w--;
+		ft_traverse_up(box, list);
+	}
 	return (list);
 }
